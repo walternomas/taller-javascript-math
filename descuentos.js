@@ -5,6 +5,31 @@ const pResult = document.querySelector('#result');
 
 btn.addEventListener('click', calcularPrecioConDescuento);
 
+// const couponsObj = {
+//   'CUPONAZO': 80,
+//   'cuponcito': 2,
+//   'CUPON50': 50,
+//   'cupon5': 5
+// }
+
+const couponList = [];
+couponList.push({
+  name: 'CUPONAZO',
+  discount: 80,
+});
+couponList.push({
+  name: 'cuponcito',
+  discount: 2,
+});
+couponList.push({
+  name: 'CUPON50',
+  discount: 50,
+});
+couponList.push({
+  name: 'cuponcito5',
+  discount: 500,
+});
+
 function calcularPrecioConDescuento() {
   // (P * (100 - D)) / 100
   const price = Number(inputPrice.value);
@@ -17,17 +42,45 @@ function calcularPrecioConDescuento() {
 
   let discount;
 
-  switch(coupon) {
-    case 'CUPONAZO':
-      discount = 80;
-      break;
-    case 'cuponcito':
-      discount = 2;
-      break;
-    default:
-      pResult.innerHTML = 'El cupón no es válido.';
-      return;
+  function isCouponInArray(couponElement) {
+    return couponElement.name === coupon;
   }
+
+  //const couponInArray = couponList.filter(isCouponInArray); // [{}]
+  const couponInArray = couponList.find(isCouponInArray); // {}
+
+  if(couponInArray) {
+    discount = couponInArray.discount;
+  } else {
+    pResult.innerHTML = 'El cupón no es válido.';
+    return;
+  }
+  //#region 
+  // if(couponInArray.length) {
+  //   discount = couponInArray[0].discount;
+  // } else {
+  //   pResult.innerHTML = 'El cupón no es válido.';
+  //   return;
+  // }
+
+  // if(couponsObj[coupon]) {
+  //   discount = couponsObj[coupon];
+  // } else {
+  //   pResult.innerHTML = 'El cupón no es válido.';
+  //   return;
+  // }
+
+  // switch(coupon) {
+  //   case 'CUPONAZO':
+  //     discount = 80;
+  //     break;
+  //   case 'cuponcito':
+  //     discount = 2;
+  //     break;
+  //   default:
+  //     pResult.innerHTML = 'El cupón no es válido.';
+  //     return;
+  // }
 
   // if(coupon === 'cuponazo') {
   //   discount = 80;
@@ -37,7 +90,7 @@ function calcularPrecioConDescuento() {
   //   pResult.innerHTML = 'El cupón no es válido.';
   //   return;
   // }
-
+  //#endregion
   if(discount >= 100) {
     pResult.innerHTML = 'El descuento no puede ser igual o mayor al 100%';
     return;
