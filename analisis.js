@@ -99,3 +99,19 @@ function medianaGeneral() {
   const mediana = PlatziMath.calcularMediana(listaMedianas);
   return mediana;
 }
+
+function medianaTopTen() {
+  const listaMedianas = salarios.map(
+    persona => medianaPorPersona(persona.name)
+  );
+
+  const medianasOrdenadas = PlatziMath.ordenarLista(listaMedianas);
+  
+  const cantidad = listaMedianas.length / 10;
+  const limite = listaMedianas.length - cantidad;
+
+  const top10 = medianasOrdenadas.slice(limite, medianasOrdenadas.length);
+
+  const medianaTop10 = PlatziMath.calcularMediana(top10);
+  return medianaTop10;
+}
