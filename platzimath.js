@@ -1,26 +1,32 @@
-function esPar(lista) {
+const PlatziMath = {};
+
+PlatziMath.esPar = function esPar(lista) {
   return !(lista.length  % 2);
 }
 
-function calcularMediana(lista) {
-  lista = ordenarLista(lista);
-  const listaEsPar = esPar(lista);
+PlatziMath.calcularMediana = function calcularMediana(lista) {
+  lista = PlatziMath.ordenarLista(lista);
+  //console.log('lista ordenada ' + lista);
+  const listaEsPar = PlatziMath.esPar(lista);
+  //console.log('tipo de lista: ' + listaEsPar?'Par':'Impar')
   if(listaEsPar) {
     const indexMitadDerecha = lista.length / 2;
     const indexMitadIzquierda = (lista.length / 2)-1;
     const mitadDerecha = lista[indexMitadDerecha];
     const mitadIzquierda = lista[indexMitadIzquierda];
     const listaMitades = [mitadIzquierda, mitadDerecha]
-    const medianaPar = calcularPromedio(listaMitades);
+    const medianaPar = PlatziMath.calcularPromedio(listaMitades);
+    //console.log('Mediana par: ' + medianaPar);
     return medianaPar;
   } else {
     const indexMitadListaImpar = Math.floor(lista.length / 2);
     const medianaImpar = lista[indexMitadListaImpar];
+    //console.log('Mediana impar: ' + medianaImpar);
     return medianaImpar;
   }
 }
 
-function calcularPromedio(lista) {
+PlatziMath.calcularPromedio = function calcularPromedio(lista) {
 
   const initialValue = 0;
   const sumWithInitial = lista.reduce(
@@ -33,19 +39,19 @@ function calcularPromedio(lista) {
 
 }
 
-function ordenarLista(listaDesordenada) {
+PlatziMath.ordenarLista = function ordenarLista(listaDesordenada) {
   const compare = (a, b) => a - b;
   const listaOrdenada = listaDesordenada.sort(compare);
   return listaOrdenada;
 }
 
-function ordenarListaBidimensional(listaDesordenada) {
+PlatziMath.ordenarListaBidimensional = function ordenarListaBidimensional(listaDesordenada) {
   const compare = (a, b) => b[1] - a[1];
   const listaOrdenada = listaDesordenada.sort(compare);
   return listaOrdenada;
 }
 
-function calcularModa(lista) {
+PlatziMath.calcularModa = function calcularModa(lista) {
   const listaCount = {};
   for (let i = 0; i < lista.length; i++) {
     const elemento = lista[i];
@@ -55,7 +61,7 @@ function calcularModa(lista) {
   }
   //console.log(listaCount);
   const listaArray = Object.entries(listaCount);
-  const listaOrdenada = ordenarListaBidimensional(listaArray);
+  const listaOrdenada = PlatziMath.ordenarListaBidimensional(listaArray);
   if(listaOrdenada[0][1] === listaOrdenada[1][1]) {
     return 'No hay moda';
   } else {
@@ -63,4 +69,3 @@ function calcularModa(lista) {
   }
 
 }
-
